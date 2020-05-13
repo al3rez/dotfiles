@@ -1,0 +1,10 @@
+font:
+  normal:
+    family: Cartograph CF
+    size: 12
+  bold:
+    family: Cartograph CF
+    style: Bold
+  italic:
+    family: Cartograph CF
+    style: Italic
