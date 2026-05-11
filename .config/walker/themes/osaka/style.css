@@ -1,0 +1,128 @@
+/* Solarized Osaka Night */
+@define-color selected-text #fdf5e2;
+@define-color text          #839395;
+@define-color base          #001419;
+@define-color border        #fdf5e2;
+@define-color foreground    #839395;
+@define-color background    #001419;
+
+* {
+  all: unset;
+}
+
+* {
+  font-family: "PlemolJP Console NF";
+  font-size: 14px;
+  color: @text;
+}
+
+scrollbar {
+  opacity: 0;
+}
+
+.normal-icons {
+  -gtk-icon-size: 16px;
+}
+
+.large-icons {
+  -gtk-icon-size: 32px;
+}
+
+.box-wrapper {
+  background: alpha(@base, 0.95);
+  padding: 10px;
+  border: 1px solid @border;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px alpha(#000000, 0.6);
+}
+
+.preview-box {
+}
+
+.box {
+}
+
+.search-container {
+  background: @base;
+  padding: 6px;
+}
+
+.input placeholder {
+  opacity: 0.5;
+}
+
+.input {
+}
+
+.input:focus,
+.input:active {
+  box-shadow: none;
+  outline: none;
+}
+
+.content-container {
+}
+
+.placeholder {
+}
+
+.scroll {
+}
+
+.list {
+}
+
+child,
+child > * {
+}
+
+child:hover .item-box {
+}
+
+child:selected .item-box {
+}
+
+child:selected .item-box * {
+  color: @selected-text;
+}
+
+child:selected {
+  background: alpha(@text, 0.07);
+}
+
+.item-box {
+  padding-left: 8px;
+}
+
+.item-text-box {
+  all: unset;
+  padding: 6px 0;
+}
+
+.item-text {
+}
+
+.item-subtext {
+  font-size: 0px;
+  min-height: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.item-image {
+  margin-right: 14px;
+  -gtk-icon-transform: scale(0.9);
+}
+
+.current {
+  font-style: italic;
+}
+
+.keybind-hints {
+  background: @background;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.preview {
+}
