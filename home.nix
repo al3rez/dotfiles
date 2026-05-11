@@ -63,5 +63,9 @@ in {
     "Pictures/13-Ventura-Dark.jpg".source = ./wallpapers/13-Ventura-Dark.jpg;
   };
 
+  # Avoid generating Home Manager options/manpage artifacts during activation.
+  manual.json.enable = false;
+  manual.manpages.enable = false;
+
   programs.home-manager.enable = true;
 }
