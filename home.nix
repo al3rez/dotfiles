@@ -6,7 +6,7 @@ let
 
     src = pkgs.fetchzip {
       url = "https://github.com/yuru7/PlemolJP/releases/download/v3.0.0/PlemolJP_NF_v3.0.0.zip";
-      hash = "sha256-iH4tDbcU1BrCarkkvdOhcrki9XsrSArwHgFHGA6sPYA=";
+      hash = "sha256-xHxILHQ4eCzDeyRLi+mq1HhcT+Aghr345WyOBJ8q5eQ=";
       stripRoot = false;
     };
 
