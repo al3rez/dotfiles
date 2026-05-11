@@ -40,9 +40,11 @@ in {
 
   # Manage configs from this repo.
   home.file = {
+    ".bashrc".source = ./.bashrc;
     ".tmux.conf".source = ./.tmux.conf;
 
     ".config/kitty/kitty.conf".source = ./.config/kitty/kitty.conf;
+    ".config/starship.toml".source = ./.config/starship.toml;
 
     ".config/nvim" = {
       source = ./.config/nvim;
