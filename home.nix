@@ -42,6 +42,7 @@ in {
   home.file = {
     ".bashrc".source = ./.bashrc;
     ".tmux.conf".source = ./.tmux.conf;
+    ".local/bin/kitty".source = ./bin/kitty;
 
     ".config/kitty/kitty.conf".source = ./.config/kitty/kitty.conf;
     ".config/starship.toml".source = ./.config/starship.toml;

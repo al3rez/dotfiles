@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Run Nix-installed kitty through nixGL with explicit NVIDIA version
+# (nixGL auto-detect currently fails with NVIDIA Open Kernel Module format).
+NVIDIA_VERSION="$(nvidia-smi --query-gpu=driver_version --format=csv,noheader 2>/dev/null | head -n1 | tr -d ' ')"
+if [ -z "$NVIDIA_VERSION" ]; then
+  NVIDIA_VERSION="$(grep -oE '[0-9]+\.[0-9]+' /proc/driver/nvidia/version 2>/dev/null | head -n1 || true)"
+fi
+if [ -z "$NVIDIA_VERSION" ]; then
+  echo "Could not detect NVIDIA driver version" >&2
+  exit 1
+fi
+
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/nixgl"
+BIN_LINK="$CACHE_DIR/nixGLNvidia-${NVIDIA_VERSION}"
+mkdir -p "$CACHE_DIR"
+
+if [ ! -x "$BIN_LINK" ]; then
+  NIXPKGS_ALLOW_UNFREE=1 NIXGL_NVIDIA_VERSION="$NVIDIA_VERSION" nix build --impure --no-link --print-out-paths --expr '
+    let
+      flake = builtins.getFlake "github:nix-community/nixGL";
+      pkgs = import flake.inputs.nixpkgs {
+        system = builtins.currentSystem;
+        config.allowUnfree = true;
+      };
+      nixgl = pkgs.callPackage "${flake}/nixGL.nix" {
+        nvidiaVersion = builtins.getEnv "NIXGL_NVIDIA_VERSION";
+      };
+    in nixgl.nixGLNvidia
+  ' | while read -r out; do
+    ln -sfn "$out/bin/nixGLNvidia-${NVIDIA_VERSION}" "$BIN_LINK"
+  done
+fi
+
+exec env \
+  LIBVA_DRIVER_NAME=nvidia \
+  __GLX_VENDOR_LIBRARY_NAME=nvidia \
+  GBM_BACKEND=nvidia-drm \
+  __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json \
+  __GL_THREADED_OPTIMIZATIONS=0 \
+  "$BIN_LINK" "$HOME/.nix-profile/bin/kitty" "$@"
